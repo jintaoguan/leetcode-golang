@@ -16,15 +16,13 @@ func rob(nums []int) int {
 	} else if length == 2 {
 		return max(nums[0], nums[1])
 	}
-	steal := make([]int, length)
-	steal[0], steal[1] = nums[0], nums[1]
-	nosteal := make([]int, length)
-	nosteal[0], nosteal[1] = 0, nums[0]
+	values := make([]int, length)
+	values[0] = nums[0]
+	values[1] = max(nums[0], nums[1])
 	for i := 2; i < len(nums); i++ {
-		steal[i] = max(steal[i-2]+nums[i], nosteal[i-1]+nums[i])
-		nosteal[i] = max(steal[i-1], nosteal[i-1])
+		values[i] = max(values[i-1], values[i-2]+nums[i])
 	}
-	return max(steal[length-1], nosteal[length-1])
+	return values[length-1]
 }
 
 func max(a, b int) int {
