@@ -42,22 +42,22 @@ func main() {
 }
 
 func lowestCommonAncestor(root, p, q *TreeNode) *TreeNode {
-	if subtree(root.Left, p) && subtree(root.Left, q) {
+	if isSubtree(root.Left, p) && isSubtree(root.Left, q) {
 		return lowestCommonAncestor(root.Left, p, q)
-	} else if subtree(root.Right, p) && subtree(root.Right, q) {
+	} else if isSubtree(root.Right, p) && isSubtree(root.Right, q) {
 		return lowestCommonAncestor(root.Right, p, q)
 	} else {
 		return root
 	}
 }
 
-func subtree(root, target *TreeNode) bool {
+func isSubtree(root, target *TreeNode) bool {
 	if root == nil {
 		return false
 	}
 	if root == target {
 		return true
 	}
-	return subtree(root.Left, target) || subtree(root.Right, target)
+	return isSubtree(root.Left, target) || isSubtree(root.Right, target)
 }
 
